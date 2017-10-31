@@ -14,9 +14,17 @@
 		http://www.springframework.org/schema/lang http://www.springframework.org/schema/lang/spring-lang-4.0.xsd
 		http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd
 		http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util.xsd">
-	<context:component-scan base-package="com.sapient" />
+	<context:component-scan base-package="com" />
 	<context:annotation-config />
+	<bean
+		class="org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor" />
 	<util:properties id="runConfig"
-		location="classpath:config/runconfig.properties"
-		ignore-resource-not-found="false" />
+		location="classpath:config/runconfig.properties" scope="singleton" />
+	<bean id="browserConfigMap" class="com.sapient.taf.utils.JsonUtils">
+		<property name="json" ref="browserConfigFile" />
+	</bean>
+	<bean id="browserConfigFile" class="java.io.File">
+		<constructor-arg index="0" type="java.lang.String"
+			value="src/main/resources/config/browserConfig.json" />
+	</bean>
 </beans>

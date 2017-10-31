@@ -1,5 +1,7 @@
 package com.sapient.taf.exceptions;
 
+import org.openqa.selenium.remote.BrowserType;
+
 public class BrowserTypeInvalidException extends RuntimeException {
 
 	/**
@@ -9,7 +11,11 @@ public class BrowserTypeInvalidException extends RuntimeException {
 	private static final String message = "Browser Type mentioned is invalid";
 
 	public BrowserTypeInvalidException() {
-		super();
+		super(message);
+	}
+
+	public BrowserTypeInvalidException(BrowserType browserType) {
+		super(message + " - " + browserType.toString());
 	}
 
 	public BrowserTypeInvalidException(String message) {
@@ -17,7 +23,7 @@ public class BrowserTypeInvalidException extends RuntimeException {
 	}
 
 	public BrowserTypeInvalidException(Throwable t) {
-		super(t);
+		super(message, t);
 	}
 
 	public BrowserTypeInvalidException(String message, Throwable t) {

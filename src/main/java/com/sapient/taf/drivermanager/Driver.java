@@ -6,6 +6,7 @@ import java.net.URL;
 
 import org.openqa.selenium.Capabilities;
 import org.openqa.selenium.WebDriver;
+
 import io.appium.java_client.AppiumDriver;
 
 public class Driver<T extends WebDriver> {
@@ -36,5 +37,31 @@ public class Driver<T extends WebDriver> {
 			throw new RuntimeException("Driver initialized is not of Mobile Driver type, Driver Type - "
 					+ driverClass.getClass().getName());
 		}
+	}
+
+	public void quitDriver() {
+		if (driver != null) {
+			driver.quit();
+		}
+	}
+
+	public void closeDriver() {
+		if (driver != null) {
+			driver.close();
+		}
+	}
+
+	@Override
+	public String toString() {
+		return "Driver [driverClass=" + driverClass + ", driver=" + driver + ", hashcode=" + this.hashCode() + "]";
+	}
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((driver == null) ? 0 : driver.hashCode());
+		result = prime * result + ((driverClass == null) ? 0 : driverClass.hashCode());
+		return result;
 	}
 }
