@@ -42,14 +42,14 @@ public class DriverFactory {
 				throw new AppiumServerPortNullException();
 			if (cap == null)
 				myCap.merge(DesiredCapabilities.android());
-			driver = new Driver<AndroidDriver<MobileElement>>(url, myCap);
+			driver = new Driver<AndroidDriver<MobileElement>>(url, myCap, AndroidDriver.class);
 			break;
 		case BrowserType.IPHONE:
 			if (url == null)
 				throw new AppiumServerPortNullException();
 			if (cap == null)
 				myCap.merge(DesiredCapabilities.iphone());
-			driver = new Driver<IOSDriver<MobileElement>>(url, myCap);
+			driver = new Driver<IOSDriver<MobileElement>>(url, myCap, IOSDriver.class);
 			break;
 		case BrowserType.CHROME:
 			if (cap == null)
@@ -58,7 +58,7 @@ public class DriverFactory {
 				throw new BrowserInitException(new RuntimeException("Driver executable path invalid - " + execPath));
 			else
 				System.setProperty("webdriver.chrome.driver", execPath);
-			driver = new Driver<ChromeDriver>(myCap);
+			driver = new Driver<ChromeDriver>(myCap, ChromeDriver.class);
 			break;
 		case BrowserType.EDGE:
 			if (cap == null)
@@ -67,14 +67,14 @@ public class DriverFactory {
 				throw new BrowserInitException(new RuntimeException("Driver executable path invalid - " + execPath));
 			else
 				System.setProperty("webdriver.edge.driver", execPath);
-			driver = new Driver<EdgeDriver>(myCap);
+			driver = new Driver<EdgeDriver>(myCap, EdgeDriver.class);
 			break;
 		case BrowserType.FIREFOX:
 			if (cap == null)
 				myCap.merge(DesiredCapabilities.firefox());
 			if (execPath != null)
 				System.setProperty("webdriver.gecko.driver", execPath);
-			driver = new Driver<FirefoxDriver>(myCap);
+			driver = new Driver<FirefoxDriver>(myCap, FirefoxDriver.class);
 			break;
 		case BrowserType.PHANTOMJS:
 			if (execPath == null)
@@ -84,7 +84,7 @@ public class DriverFactory {
 				phan.setCapability(PhantomJSDriverService.PHANTOMJS_EXECUTABLE_PATH_PROPERTY, execPath);
 				myCap.merge(phan);
 			}
-			driver = new Driver<PhantomJSDriver>(myCap);
+			driver = new Driver<PhantomJSDriver>(myCap, PhantomJSDriver.class);
 			break;
 		case BrowserType.IE:
 			if (cap == null)
@@ -93,7 +93,7 @@ public class DriverFactory {
 				throw new BrowserInitException(new RuntimeException("Driver executable path invalid - " + execPath));
 			else
 				System.setProperty("webdriver.ie.driver", execPath);
-			driver = new Driver<InternetExplorerDriver>(myCap);
+			driver = new Driver<InternetExplorerDriver>(myCap, InternetExplorerDriver.class);
 			break;
 		case BrowserType.SAFARI:
 			if (cap == null)
@@ -102,7 +102,7 @@ public class DriverFactory {
 				throw new BrowserInitException(new RuntimeException("Driver executable path invalid - " + execPath));
 			else
 				System.setProperty("webdriver.safari.driver", execPath);
-			driver = new Driver<SafariDriver>(myCap);
+			driver = new Driver<SafariDriver>(myCap, SafariDriver.class);
 			break;
 		case "GRID":
 			if (cap == null)
@@ -113,7 +113,7 @@ public class DriverFactory {
 				throw new BrowserInitException(
 						"Cannot instantiate remote web browser without url for hub, please provide the same. Url provided = ["
 								+ url + "]");
-			driver = new Driver<RemoteWebDriver>(url, myCap);
+			driver = new Driver<RemoteWebDriver>(url, myCap, RemoteWebDriver.class);
 		case BrowserType.HTMLUNIT:
 		default:
 			throw new BrowserTypeInvalidException();

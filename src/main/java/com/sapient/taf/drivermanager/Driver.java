@@ -12,18 +12,21 @@ import io.appium.java_client.AppiumDriver;
 public class Driver<T extends WebDriver> {
 	private T driverClass;
 	private WebDriver driver;
+	private final Class<? extends WebDriver> type;	
 
-	public Driver(Capabilities capabilities) throws InstantiationException, IllegalAccessException,
+	public Driver(Capabilities capabilities, Class<? extends WebDriver> type) throws InstantiationException, IllegalAccessException,
 			NoSuchMethodException, SecurityException, IllegalArgumentException, InvocationTargetException {
-		Constructor<? extends WebDriver> driverConstructor = driverClass.getClass().getConstructor(Capabilities.class);
-		this.driver = driverConstructor.newInstance(capabilities);
+		this.type = type;
+		Constructor<? extends WebDriver> driverConstructor = type.getConstructor(Capabilities.class);
+		this.driver = driverConstructor.newInstance(capabilities);		
 	}
 
-	public Driver(URL remoteUrl, Capabilities capabilities) throws NoSuchMethodException, SecurityException,
+	public Driver(URL remoteUrl, Capabilities capabilities, Class<? extends WebDriver> type) throws NoSuchMethodException, SecurityException,
 			InstantiationException, IllegalAccessException, IllegalArgumentException, InvocationTargetException {
-		Constructor<? extends WebDriver> driverConstructor = driverClass.getClass().getConstructor(URL.class,
+		this.type = type;
+		Constructor<? extends WebDriver> driverConstructor = type.getConstructor(URL.class,
 				Capabilities.class);
-		this.driver = driverConstructor.newInstance(remoteUrl, capabilities);
+		this.driver = driverConstructor.newInstance(remoteUrl, capabilities);		
 	}
 
 	public WebDriver getWebDriver() {
@@ -63,5 +66,9 @@ public class Driver<T extends WebDriver> {
 		result = prime * result + ((driver == null) ? 0 : driver.hashCode());
 		result = prime * result + ((driverClass == null) ? 0 : driverClass.hashCode());
 		return result;
+	}
+
+	public Class<? extends WebDriver> getType() {
+		return type;
 	}
 }
