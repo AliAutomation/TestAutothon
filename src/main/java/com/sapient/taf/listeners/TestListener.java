@@ -2,6 +2,7 @@ package com.sapient.taf.listeners;
 
 import java.io.FileNotFoundException;
 import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Type;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.Map;
@@ -19,6 +20,7 @@ import org.testng.IInvokedMethodListener;
 import org.testng.ITestResult;
 
 import com.google.common.base.Splitter;
+import com.google.common.reflect.TypeToken;
 import com.sapient.taf.drivermanager.DriverFactory;
 import com.sapient.taf.drivermanager.DriverManager;
 import com.sapient.taf.exceptions.BrowserInitException;
@@ -85,8 +87,11 @@ public class TestListener implements IInvokedMethodListener {
 			execPath = null;
 			return;
 		} else {
-			Map<String, Map<String, String>> params = browserConfigMap.readJson();
-			execPath = params.get(Platform.getCurrent()).get(browserName);
+			Type T = new TypeToken<Map<String, Map<String, String>>>() {
+				private static final long serialVersionUID = 1L;
+			}.getType();
+			Map<String, Map<String, String>> params = browserConfigMap.readJson(T);
+			execPath = params.get(Platform.getCurrent().toString()).get(browserName.toUpperCase());
 		}
 	}
 }

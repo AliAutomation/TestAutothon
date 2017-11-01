@@ -21,15 +21,12 @@ public class JsonUtils {
 		this.json = json;
 	}
 	
-	public <T> T readJson() throws FileNotFoundException {
-		return this.readJson(getJson());
+	public <T> T readJson(Type T) throws FileNotFoundException {
+		return this.readJson(getJson(), T);
 	}
 
-	public <T> T readJson(File json) throws FileNotFoundException {
-		Type TYPE = new TypeToken<T>() {
-			private static final long serialVersionUID = -1478317707606547912L;
-		}.getType();
-
+	public <T> T readJson(File json, Type T) throws FileNotFoundException {
+		Type TYPE = TypeToken.of(T).getType();
 		GsonBuilder builder = new GsonBuilder();
 		builder.setPrettyPrinting().serializeNulls();
 		Gson gson = builder.create();
