@@ -36,7 +36,7 @@ public class DriverFactory {
 			myCap = new DesiredCapabilities();
 		}
 
-		switch (browserName.trim().toUpperCase()) {
+		switch (browserName.trim()) {
 		case BrowserType.ANDROID:
 			if (url == null)
 				throw new AppiumServerPortNullException();

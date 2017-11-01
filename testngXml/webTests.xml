@@ -5,6 +5,7 @@
 		<listener class-name="com.sapient.taf.listeners.TestListener" />
 	</listeners>
 	<test name="webTests1">
+		<parameter name="browser" value="chrome" />
 		<packages>
 			<package name="com.app.web.tests"></package>
 		</packages>

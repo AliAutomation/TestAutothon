@@ -12,6 +12,8 @@ import org.openqa.selenium.Platform;
 import org.openqa.selenium.remote.DesiredCapabilities;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.testng.IInvokedMethod;
 import org.testng.IInvokedMethodListener;
 import org.testng.ITestResult;
@@ -20,18 +22,26 @@ import com.google.common.base.Splitter;
 import com.sapient.taf.drivermanager.DriverFactory;
 import com.sapient.taf.drivermanager.DriverManager;
 import com.sapient.taf.exceptions.BrowserInitException;
+import com.sapient.taf.framework.coreclasses.FrameworkConstants;
 import com.sapient.taf.utils.JsonUtils;
 
 public class TestListener implements IInvokedMethodListener {
 
-	@Qualifier("runConfig")
 	@Autowired
+	@Qualifier("runConfig")
 	private Properties runConfig;
 	private String execPath;
+	private ApplicationContext appContext;
 
-	@Qualifier("browserConfigMap")
 	@Autowired
+	@Qualifier("browserConfigMap")
 	private JsonUtils browserConfigMap;
+
+	public TestListener() {
+		appContext = new ClassPathXmlApplicationContext(FrameworkConstants.frameworkContextPath);
+		runConfig = appContext.getBean("runConfig", Properties.class);
+		browserConfigMap = appContext.getBean("browserConfigMap", JsonUtils.class);
+	}
 
 	@Override
 	public void beforeInvocation(IInvokedMethod method, ITestResult testResult) {
@@ -41,8 +51,7 @@ public class TestListener implements IInvokedMethodListener {
 						.valueOf(runConfig.getProperty("framework.execution.remote.value", "false").toLowerCase());
 				URL url = new URL(gridExecution ? runConfig.getProperty("framework.execution.remote.hub.url")
 						: runConfig.getProperty("framework.appium.url"));
-				String browserName = method.getTestMethod().getXmlTest().getLocalParameters().get("browser")
-						.toUpperCase();
+				String browserName = method.getTestMethod().getXmlTest().getLocalParameters().get("browser");
 				Capabilities cap = getCapabilities(browserName, gridExecution,
 						new DesiredCapabilities(Splitter.on(',').withKeyValueSeparator('=').split(runConfig
 								.getProperty("framework.execution.additional.capabilities", "cap1=val1,cap2=val2"))));
@@ -78,6 +87,6 @@ public class TestListener implements IInvokedMethodListener {
 		} else {
 			Map<String, Map<String, String>> params = browserConfigMap.readJson();
 			execPath = params.get(Platform.getCurrent()).get(browserName);
-		}		
+		}
 	}
 }
