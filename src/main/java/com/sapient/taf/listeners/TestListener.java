@@ -7,18 +7,14 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.Map;
 import java.util.Properties;
-
 import org.openqa.selenium.Capabilities;
 import org.openqa.selenium.Platform;
 import org.openqa.selenium.remote.DesiredCapabilities;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.testng.IInvokedMethod;
 import org.testng.IInvokedMethodListener;
 import org.testng.ITestResult;
-
 import com.google.common.base.Splitter;
 import com.google.common.reflect.TypeToken;
 import com.sapient.taf.drivermanager.DriverFactory;
@@ -29,14 +25,9 @@ import com.sapient.taf.utils.JsonUtils;
 
 public class TestListener implements IInvokedMethodListener {
 
-	@Autowired
-	@Qualifier("runConfig")
 	private Properties runConfig;
 	private String execPath;
 	private ApplicationContext appContext;
-
-	@Autowired
-	@Qualifier("browserConfigMap")
 	private JsonUtils browserConfigMap;
 
 	public TestListener() {
