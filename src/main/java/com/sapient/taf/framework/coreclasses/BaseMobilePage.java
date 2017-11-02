@@ -13,4 +13,8 @@ public class BaseMobilePage implements BasePage  {
 	protected void setDriver(AppiumDriver<?> driver) {
 		this.driver = driver;
 	}	
+	
+	protected BaseMobilePage(AppiumDriver<?> driver) {
+		this.driver = driver;
+	}
 }

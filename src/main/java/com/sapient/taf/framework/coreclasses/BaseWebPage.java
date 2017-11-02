@@ -13,4 +13,8 @@ public class BaseWebPage implements BasePage {
 	protected void setDriver(WebDriver driver) {
 		this.driver = driver;
 	}
+
+	protected BaseWebPage(WebDriver driver) {
+		this.driver = driver;
+	}
 }

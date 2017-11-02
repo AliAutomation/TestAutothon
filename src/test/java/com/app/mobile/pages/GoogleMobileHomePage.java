@@ -6,6 +6,6 @@ import io.appium.java_client.AppiumDriver;
 
 public class GoogleMobileHomePage extends BaseMobilePage {
 	public GoogleMobileHomePage(AppiumDriver<?> driver) {
-		setDriver(driver);
+		super(driver);
 	}
 }

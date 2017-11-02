@@ -6,6 +6,6 @@ import com.sapient.taf.framework.coreclasses.BaseWebPage;
 
 public class GoogleHomePage extends BaseWebPage {
 	public GoogleHomePage(WebDriver driver) {
-		setDriver(driver);
+		super(driver);
 	}
 }
