@@ -10,6 +10,6 @@ public class GoogleFinanceTest {
 	public void dummyTest() throws Exception {
 		WebDriver driver = DriverManager.getDriver().getWebDriver();
 		driver.get("http://www.google.co.in");
-		Thread.sleep(5000);
+		Thread.sleep(500);
 	}
 }
