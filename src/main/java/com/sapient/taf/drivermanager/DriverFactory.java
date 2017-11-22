@@ -1,9 +1,15 @@
 package com.sapient.taf.drivermanager;
 
+import java.io.FileNotFoundException;
 import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Type;
+import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.Map;
+import java.util.Properties;
 
 import org.openqa.selenium.Capabilities;
+import org.openqa.selenium.Platform;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.edge.EdgeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
@@ -14,15 +20,68 @@ import org.openqa.selenium.remote.BrowserType;
 import org.openqa.selenium.remote.DesiredCapabilities;
 import org.openqa.selenium.remote.RemoteWebDriver;
 import org.openqa.selenium.safari.SafariDriver;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
+
+import com.google.common.base.Splitter;
+import com.google.common.reflect.TypeToken;
 import com.sapient.taf.exceptions.AppiumServerPortNullException;
 import com.sapient.taf.exceptions.BrowserInitException;
 import com.sapient.taf.exceptions.BrowserTypeInvalidException;
+import com.sapient.taf.framework.coreclasses.FrameworkConstants;
+import com.sapient.taf.utils.JsonUtils;
 
 import io.appium.java_client.MobileElement;
 import io.appium.java_client.android.AndroidDriver;
 import io.appium.java_client.ios.IOSDriver;
 
 public class DriverFactory {
+	private static Properties runConfig;
+	private static ApplicationContext ctx;
+	private static JsonUtils browserConfigMap;
+	private static String execPath;
+
+	static {
+		ctx = new ClassPathXmlApplicationContext(FrameworkConstants.frameworkContextPath);
+		runConfig = ctx.getBean("runConfig", Properties.class);
+		browserConfigMap = ctx.getBean("browserConfigMap", JsonUtils.class);
+	}
+
+	public static Driver<?> createInstance(String browserName)
+			throws MalformedURLException, InvocationTargetException, InstantiationException, IllegalAccessException,
+			NoSuchMethodException, SecurityException, IllegalArgumentException, FileNotFoundException {
+		boolean gridExecution = Boolean
+				.valueOf(runConfig.getProperty("framework.execution.remote.value", "false").toLowerCase());
+		URL url = new URL(gridExecution ? runConfig.getProperty("framework.execution.remote.hub.url")
+				: runConfig.getProperty("framework.appium.url"));
+		Capabilities cap = getCapabilities(browserName, gridExecution,
+				new DesiredCapabilities(Splitter.on(',').withKeyValueSeparator('=').split(
+						runConfig.getProperty("framework.execution.additional.capabilities", "cap1=val1,cap2=val2"))));
+		return createInstance(browserName, url, cap, execPath);
+	}
+
+	private static Capabilities getCapabilities(String browserName, boolean grid, Capabilities... moreCapabilities)
+			throws FileNotFoundException {
+		DesiredCapabilities capabilities = new DesiredCapabilities(moreCapabilities);
+		capabilities.setBrowserName(browserName);
+		capabilities.setPlatform(grid ? Platform.valueOf(runConfig.getProperty("framework.execution.remote.platform"))
+				: Platform.getCurrent());
+		setExecPath(browserName, grid);
+		return capabilities;
+	}
+
+	private static void setExecPath(String browserName, boolean grid) throws FileNotFoundException {
+		if (grid) {
+			execPath = null;
+			return;
+		} else {
+			Type T = new TypeToken<Map<String, Map<String, String>>>() {
+				private static final long serialVersionUID = 1L;
+			}.getType();
+			Map<String, Map<String, String>> params = browserConfigMap.readJson(T);
+			execPath = params.get(Platform.getCurrent().toString()).get(browserName.toUpperCase());
+		}
+	}
 
 	public static Driver<?> createInstance(String browserName, URL url, Capabilities cap, String execPath)
 			throws InvocationTargetException, InstantiationException, IllegalAccessException, NoSuchMethodException,
