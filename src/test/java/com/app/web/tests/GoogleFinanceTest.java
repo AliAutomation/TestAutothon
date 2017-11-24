@@ -1,15 +1,16 @@
 package com.app.web.tests;
 
-import org.openqa.selenium.WebDriver;
-import org.testng.annotations.Test;
+import java.io.IOException;
 
+import org.testng.annotations.Test;
+import com.app.web.pages.GoogleHomePage;
 import com.sapient.taf.drivermanager.DriverManager;
 
 public class GoogleFinanceTest {
+
 	@Test
-	public void dummyTest() throws Exception {
-		WebDriver driver = DriverManager.getDriver().getWebDriver();
-		driver.get("http://www.google.co.in");
-		Thread.sleep(500);
+	public void dummyTest() throws IOException {
+		GoogleHomePage ghp = new GoogleHomePage(DriverManager.getDriver().getWebDriver());
+		ghp.searchText("AAPL stock");
 	}
 }
