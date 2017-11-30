@@ -1,51 +1,29 @@
 package com.sapient.taf.framework.coreclasses;
 
-import java.util.List;
-
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.ui.Wait;
 import org.openqa.selenium.support.ui.WebDriverWait;
+import com.sapient.taf.drivermanager.DriverManager;
 
 public class BaseWebPage implements BasePage {
 
 	protected WebDriver driver;
-	protected Wait<WebDriver> wait;
+	protected Wait<? extends WebDriver> wait;
+	protected ObjectRepository objectRepository;
 
-	protected WebDriver getDriver() {
-		return driver;
-	}
-
-	protected void setDriver(WebDriver driver) {
-		this.driver = driver;
-	}
-
-	public Wait<?> getWait() {
-		return wait;
-	}
-
-	public void setWait(Wait<WebDriver> wait) {
-		this.wait = wait;
-	}
-
-	protected BaseWebPage(WebDriver driver, List<Class<? extends Exception>> exceptionsToIgnore) {
-		this.driver = driver;
-		wait = new WebDriverWait(driver, FrameworkConstants.maxWebPageOrWaitTime).ignoreAll(exceptionsToIgnore);
+	protected BaseWebPage() {
+		this(DriverManager.getDriver().getWebDriver());
 	}
 	
-	protected BaseWebPage(WebDriver driver, boolean noWaitInit) {
-		this.driver = driver;
-	}
-
 	protected BaseWebPage(WebDriver driver) {
-		this.driver = driver;
-		wait = new WebDriverWait(driver, FrameworkConstants.maxWebPageOrWaitTime);
+		this(driver, new WebDriverWait(driver, FrameworkConstants.maxWebPageOrWaitTime));
 	}
-
-	protected BaseWebPage(WebDriver driver, Class<? extends Wait<?>> typeOfWait) {
+	
+	protected BaseWebPage(WebDriver driver, Wait<? extends WebDriver> wait) {
 		this.driver = driver;
-		// TODO
+		this.wait = wait;
 	}
-
+	
 	protected void maximizePage() {
 		this.driver.manage().window().maximize();
 	}

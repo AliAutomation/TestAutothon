@@ -22,7 +22,7 @@ public class ObjectRepository {
 		this.orFile = new Properties();
 		this.orFile.load(new FileInputStream(FrameworkConstants.objectRepoFolder + File.separator + orFile));
 	}
-
+	
 	public String getDirectProperty(String propname) {
 		return orFile.getProperty(propname, null);
 	}
