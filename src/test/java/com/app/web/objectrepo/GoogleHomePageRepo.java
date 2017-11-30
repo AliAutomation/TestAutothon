@@ -1,9 +1,7 @@
 package com.app.web.objectrepo;
 
-public class GoogleHomePageRepo {
+import org.openqa.selenium.By;
 
-	public GoogleHomePageRepo() {
-		// TODO Auto-generated constructor stub
-	}
-
+public interface GoogleHomePageRepo {
+	By searchbox = By.name("q");
 }

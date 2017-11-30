@@ -5,7 +5,7 @@ import org.openqa.selenium.support.ui.Wait;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import com.sapient.taf.drivermanager.DriverManager;
 
-public class BaseWebPage implements BasePage {
+public abstract class BaseWebPage implements BasePage {
 
 	protected WebDriver driver;
 	protected Wait<? extends WebDriver> wait;

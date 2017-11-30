@@ -8,10 +8,11 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Wait;
 
+import com.app.web.objectrepo.GoogleHomePageRepo;
 import com.sapient.taf.framework.coreclasses.BaseWebPage;
 import com.sapient.taf.framework.coreclasses.ObjectRepository;
 
-public class GoogleHomePage extends BaseWebPage {
+public class GoogleHomePage extends BaseWebPage implements GoogleHomePageRepo {
 	
 	private static final String orFileName = "googleHomePage.properties";
 
@@ -42,6 +43,6 @@ public class GoogleHomePage extends BaseWebPage {
 		// TODO - replace with Element
 		wait.until(ExpectedConditions.visibilityOfElementLocated(objectRepository.getLocator("searchbox")))
 				.sendKeys(ArrayUtils.add(searchThis, String.valueOf(Keys.ENTER)));
-		wait.until(ExpectedConditions.visibilityOfElementLocated(objectRepository.getLocator("searchbox"))).click();
+		wait.until(ExpectedConditions.visibilityOfElementLocated(searchbox)).click();
 	}
 }
