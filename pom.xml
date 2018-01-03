@@ -2,7 +2,7 @@
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>com.sapient</groupId>
-	<artifactId>testautomationframework</artifactId>
+	<artifactId>ldemop</artifactId>
 	<version>1.0</version>
 	<packaging>jar</packaging>
 	<name>testautomationframework</name>
@@ -20,8 +20,8 @@
 		<jackson.version>2.9.2</jackson.version>
 		<slf4j.version>1.7.25</slf4j.version>
 		<webdriver.exec.dir>src/main/resources/drivers</webdriver.exec.dir>
-		
-		
+		<extentreport.version>3.1.2</extentreport.version>
+		<mysqljdbc.version>5.1.6</mysqljdbc.version>
 	</properties>
 	<build>
 		<pluginManagement>
@@ -147,7 +147,11 @@
 		</pluginManagement>
 	</build>
 	<dependencies>
-	
+		<dependency>
+			<groupId>com.aventstack</groupId>
+			<artifactId>extentreports</artifactId>
+			<version>3.1.1</version>
+		</dependency>
 		<dependency>
 			<groupId>info.cukes</groupId>
 			<artifactId>cucumber-junit</artifactId>
@@ -224,6 +228,11 @@
 			<version>${selenium.version}</version>
 		</dependency>
 
+		<dependency>
+			<groupId>mysql</groupId>
+			<artifactId>mysql-connector-java</artifactId>
+			<version>${mysqljdbc.version}</version>
+		</dependency>
 
 		<dependency>
 			<groupId>org.seleniumhq.selenium</groupId>
