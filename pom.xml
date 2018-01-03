@@ -20,7 +20,8 @@
 		<jackson.version>2.9.2</jackson.version>
 		<slf4j.version>1.7.25</slf4j.version>
 		<webdriver.exec.dir>src/main/resources/drivers</webdriver.exec.dir>
-		<extentreport.version>3.1.2</extentreport.version>
+		
+		
 	</properties>
 	<build>
 		<pluginManagement>
@@ -146,11 +147,7 @@
 		</pluginManagement>
 	</build>
 	<dependencies>
-	<dependency>
-			<groupId>com.aventstack</groupId>
-			<artifactId>extentreports</artifactId>
-			<version>3.1.1</version>
-		</dependency>
+	
 		<dependency>
 			<groupId>info.cukes</groupId>
 			<artifactId>cucumber-junit</artifactId>
@@ -226,6 +223,8 @@
 			<artifactId>selenium-server</artifactId>
 			<version>${selenium.version}</version>
 		</dependency>
+
+
 		<dependency>
 			<groupId>org.seleniumhq.selenium</groupId>
 			<artifactId>selenium-firefox-driver</artifactId>
@@ -297,6 +296,6 @@
 			<version>${slf4j.version}</version>
 		</dependency>
 
-		
+
 	</dependencies>
 </project>
