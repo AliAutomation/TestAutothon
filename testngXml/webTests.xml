@@ -23,7 +23,7 @@
 		<classes>
 			<class name="com.app.web.tests.GoogleFinanceTest3"/>
 		</classes>
-
+</test>
 	
 	<!-- <test name="webTests2">
 		<parameter name="browser" value="chrome" />
