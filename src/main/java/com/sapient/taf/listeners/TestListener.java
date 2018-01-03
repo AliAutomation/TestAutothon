@@ -1,5 +1,6 @@
 package com.sapient.taf.listeners;
 
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
@@ -49,6 +50,7 @@ public class TestListener implements IInvokedMethodListener, ISuiteListener, ITe
 
 		if (testResult.getStatus() == ITestResult.SUCCESS) {
 			logger.info(testResult.getMethod().getMethodName() + " Passed");
+			
 
 			ReportUtil.logPass(testResult.getMethod().getMethodName() + " Passes");
 		}
@@ -75,6 +77,7 @@ public class TestListener implements IInvokedMethodListener, ISuiteListener, ITe
 		}
 
 	   		DriverManager.getDriver().quitDriver();
+			 
 	}
 
 	final static MyLogger logger = LoggerFactory.getLogger(TestListener.class);
@@ -182,8 +185,8 @@ public class TestListener implements IInvokedMethodListener, ISuiteListener, ITe
 	@Override
 	public void onFinish(ISuite arg0) {
 		// TODO Auto-generated method stub
-		 ReportManager.getReporter().flush();
 
+		ReportManager.getReporter().flush();
 	}
 
 	@Override
@@ -192,10 +195,24 @@ public class TestListener implements IInvokedMethodListener, ISuiteListener, ITe
 
 		String ReporterName;
 
-		reportLocation = System.getProperty("user.dir") + "\\Reports\\" + TimestampUtils.getTimeStamp() + "\\";
+		reportLocation = System.getProperty("user.dir") + "\\Reports\\"  +  TimestampUtils.getTimeStamp() ;
+		
+		File f =new File(reportLocation);
+		if(f.exists()) {
+			System.out.println(" File directory exists");
+			
+		}
+		
+		else {
+			f.mkdir();
+			
+			System.out.println("File directory created");
+		}
 
-		ExtentHtmlReporter htmlReporter = ReportManager.getHTMLReporter(reportLocation + arg0.getName() + ".html");
+		
+		ExtentHtmlReporter htmlReporter = ReportManager.getHTMLReporter(reportLocation  + "\\" + arg0.getName() + ".html");
 
+	
 		htmlReporter.config().setChartVisibilityOnOpen(true);
 		htmlReporter.config().setDocumentTitle("Automation Test Report");
 		htmlReporter.config().setReportName(arg0.getName());
