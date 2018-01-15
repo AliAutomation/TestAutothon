@@ -7,7 +7,7 @@ import org.testng.SkipException;
 import org.testng.annotations.Test;
 
 import com.app.web.pages.GoogleHomePage;
-import com.sapient.taf.assertions.SoftAssertCustom;
+
 import com.sapient.taf.reporting.ReportUtil;
 
 public class GoogleFinanceTest {
@@ -23,7 +23,7 @@ public class GoogleFinanceTest {
 		ghp.searchText("AAPL stock");
 		ReportUtil.logInfo("Test A - Step 1");
 		//ReportUtil.logPass("Test A - Step 1");
-		SoftAssertCustom.checkForErrors();
+	//	ReportUtil.checkForErrors();
 		//Assert.assertTrue(true);
 		//Reporter.
 	}
@@ -37,6 +37,7 @@ public class GoogleFinanceTest {
 		ReportUtil.logInfo("Test A2 - Step 3");
 		ghp.searchText("AAPL stock");
 		Assert.assertTrue(true);
+		//ReportUtil.checkForErrors();
 	}
 
 }
