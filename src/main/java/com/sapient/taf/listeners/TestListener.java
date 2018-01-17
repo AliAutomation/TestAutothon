@@ -5,6 +5,7 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
 import java.net.MalformedURLException;
+import java.util.HashMap;
 
 import org.testng.IInvokedMethod;
 import org.testng.IInvokedMethodListener;
@@ -13,6 +14,7 @@ import org.testng.ISuiteListener;
 import org.testng.ITestContext;
 import org.testng.ITestListener;
 import org.testng.ITestResult;
+import org.testng.annotations.Parameters;
 import org.testng.internal.IResultListener;
 
 import com.aventstack.extentreports.AnalysisStrategy;
@@ -22,22 +24,32 @@ import com.aventstack.extentreports.reporter.configuration.ChartLocation;
 import com.aventstack.extentreports.reporter.configuration.Theme;
 import com.sapient.taf.drivermanager.DriverFactory;
 import com.sapient.taf.drivermanager.DriverManager;
+import com.sapient.taf.framework.coreclasses.BaseClass;
+import com.sapient.taf.framework.coreclasses.BaseWebPage;
 import com.sapient.taf.log.LoggerFactory;
 import com.sapient.taf.log.MyLogger;
+import com.sapient.taf.reporting.IReportComm;
 import com.sapient.taf.reporting.ReportManager;
 import com.sapient.taf.reporting.ReportTestManager;
 import com.sapient.taf.reporting.ReportUtil;
 
+
 import com.sapient.taf.utils.TimestampUtils;
 
-public class TestListener implements IInvokedMethodListener, ISuiteListener, ITestListener, IResultListener {
+public class TestListener extends BaseClass implements IInvokedMethodListener, ISuiteListener, ITestListener, IResultListener {
 
+
+	
 	@Override
 	public void beforeInvocation(IInvokedMethod method, ITestResult testResult) {
+		
+		System.out.println("Inside");
 		if (method.isTestMethod()) {
 			try {
 				DriverManager.setWebDriver(DriverFactory
 						.createInstance(method.getTestMethod().getXmlTest().getLocalParameters().get("browser")));
+			
+			
 			} catch (MalformedURLException | InvocationTargetException | InstantiationException | IllegalAccessException
 					| NoSuchMethodException | SecurityException | IllegalArgumentException | FileNotFoundException e) {
 				e.printStackTrace();
@@ -48,23 +60,23 @@ public class TestListener implements IInvokedMethodListener, ISuiteListener, ITe
 	@Override
 	public void afterInvocation(IInvokedMethod method, ITestResult testResult) {
 
+		
+	
+		
 		if (testResult.getStatus() == ITestResult.SUCCESS) {
 			logger.info(testResult.getMethod().getMethodName() + " Passed");
 			
 
-			ReportUtil.logPass(testResult.getMethod().getMethodName() + " Passes");
+			reportUtil.logPass(testResult.getMethod().getMethodName() + " Passes");
 		}
 
 		else if (testResult.getStatus() == ITestResult.FAILURE) {
 			if (testResult.getThrowable() != null) {
 				logger.error(testResult.getMethod() + testResult.getThrowable().getMessage());
-				try {
-					ReportUtil.logFail(
+				
+					reportUtil.logFail(
 							"Test Case Fails with following message:: " + testResult.getThrowable().getMessage());
-				} catch (IOException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
+			
 
 			}
 		}
@@ -72,7 +84,7 @@ public class TestListener implements IInvokedMethodListener, ISuiteListener, ITe
 		else if (testResult.getStatus() == ITestResult.SKIP) {
 
 			logger.info(testResult.getMethod().getMethodName() + "SKIPPED");
-			ReportUtil.logSkipped("Test Case Skipped");
+			reportUtil.logSkipped("Test Case Skipped");
 
 		}
 
@@ -88,6 +100,7 @@ public class TestListener implements IInvokedMethodListener, ISuiteListener, ITe
 	 */
 	public void onTestStart(ITestResult result) {
 
+		ReportUtil.errorMessageBuffer = new HashMap<Long, StringBuffer>();
 		ExtentTest child = ReportTestManager.createNode(result.getMethod().getMethodName());
 
 		/*
@@ -190,10 +203,26 @@ public class TestListener implements IInvokedMethodListener, ISuiteListener, ITe
 	}
 
 	@Override
+	//@Parameters({"report"})
 	public void onStart(ISuite arg0) {
 		// TODO Auto-generated method stub
-
-		String ReporterName;
+/*		String reportFormat=arg0.getXmlSuite().getParameter("report");
+		
+		System.out.println("Report Class" + reportFormat);
+		
+		switch(reportFormat) {
+		
+		
+		case"Extent" :
+			System.out.println("Inside");
+		//	reportUtil=new ReportUtil();
+			System.out.println(reportUtil);
+		break;
+		
+		
+		}
+		
+		String ReporterName;*/
 
 		reportLocation = System.getProperty("user.dir") + "\\Reports\\"  +  TimestampUtils.getTimeStamp() ;
 		
@@ -219,5 +248,8 @@ public class TestListener implements IInvokedMethodListener, ISuiteListener, ITe
 		htmlReporter.config().setTestViewChartLocation(ChartLocation.TOP);
 		htmlReporter.config().setTheme(Theme.STANDARD);
 
+
+	
+		
 	}
 }

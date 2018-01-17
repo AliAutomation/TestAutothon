@@ -24,15 +24,15 @@ import com.sapient.taf.log.LoggerFactory;
 import com.sapient.taf.log.MyLogger;
 
 
-public class ReportUtil 
+public class ReportUtil implements IReportComm
 {
 
 	/**
 	 * The Logger logger
 	 */
-	private final static  MyLogger logger = LoggerFactory.getLogger(ReportUtil.class);
+	private final   MyLogger logger = LoggerFactory.getLogger(ReportUtil.class);
 
-	public  static HashMap<Long, StringBuffer> errorMessageBuffer ;
+	public static HashMap<Long, StringBuffer> errorMessageBuffer;
 
 	/**
 	 * Add the error message to the error buffer. This error buffer is used to
@@ -41,7 +41,7 @@ public class ReportUtil
 	 * 
 	 * @param error
 	 */
-	public  static void addErrorMessageToBuffer(Error error) {
+	public   void addErrorMessageToBuffer(Error error) {
 		try {
 			StringBuffer errorBuffer = null;
 			if (errorMessageBuffer.get(Thread.currentThread().getId()) == null) {
@@ -65,7 +65,7 @@ public class ReportUtil
 	 *            Message to be printed to the report
 	 */
 
-	public  static void assertTrue(boolean condition, String message) {
+	public   void assertTrue(boolean condition, String message) {
 		try {
 			Assert.assertTrue(condition, message);
 		} catch (Error e) {
@@ -85,7 +85,7 @@ public class ReportUtil
 	 *            Message to be printed to the report
 	 */
 
-	public  static void assertFalse(boolean condition, String message) {
+	public   void assertFalse(boolean condition, String message) {
 		try {
 			Assert.assertFalse(condition, message);
 		} catch (Error e) {
@@ -107,7 +107,7 @@ public class ReportUtil
 	 *            Message to be printed to the report
 	 */
 
-	public  static void assertEquals(String actual, String expected, String message) {
+	public   void assertEquals(String actual, String expected, String message) {
 		try {
 			Assert.assertEquals(actual, expected, message);
 		} catch (Error e) {
@@ -123,7 +123,7 @@ public class ReportUtil
 	 * @param detail
 	 *            the detial for passed test case
 	 */
-	public  static void logPass(String detail) {
+	public   void logPass(String detail) {
 		logger.info("Test Case passes" + ReportTestManager.getChildTest().toString());
 		Assert.assertTrue(true, detail);
 		ReportTestManager.getChildTest().pass(MarkupHelper.createLabel(detail, ExtentColor.GREEN));
@@ -137,11 +137,16 @@ public class ReportUtil
 	 *            the detail for failed test case
 	 * @throws IOException
 	 */
-	public  static void logFail(String detail) throws IOException {
-		failure(detail);
+	public   void logFail(String detail) {
+		try {
+			failure(detail);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
-	public  static void verifyEqual(Object actual, Object expected) throws IOException {
+	public   void verifyEqual(Object actual, Object expected) throws IOException {
 		if (!actual.equals(expected)) {
 			logFail(actual + " not equals to " + expected);
 		} else {
@@ -156,7 +161,7 @@ public class ReportUtil
 	 * @param detail
 	 *            the details for skipped test case
 	 */
-	public  static void logSkipped(String detail) {
+	public   void logSkipped(String detail) {
 		logger.info("Test Case skipped");
 		ReportTestManager.getChildTest().skip(MarkupHelper.createLabel(detail, ExtentColor.YELLOW));
 		// ReportTestManager.getTest().
@@ -169,7 +174,7 @@ public class ReportUtil
 	 *            reference element
 	 */
 	/*
-	 * public  static void isElementDisplayed(By by) {
+	 * public   void isElementDisplayed(By by) {
 	 * logger.info("Inside isElementDisplayed"); WebDriver driver =
 	 * DriverFactory.getDriver();
 	 * 
@@ -185,7 +190,7 @@ public class ReportUtil
 	 *            reference element
 	 */
 	/*
-	 * public  static void isElementSelected(By by) {
+	 * public   void isElementSelected(By by) {
 	 * logger.info("Inside isElementSelected"); WebDriver driver =
 	 * DriverFactory.getDriver();
 	 * 
@@ -200,20 +205,20 @@ public class ReportUtil
 	 *            reference element
 	 */
 	/*
-	 * public  static void isElementEnabled(By by) {
+	 * public   void isElementEnabled(By by) {
 	 * logger.info("Inside isElementEnabled"); WebDriver driver =
 	 * DriverFactory.getDriver(); if (driver.findElement(by).isEnabled()) {
 	 * logPass("Element is Enabled"); } else { logFail("Element is not enabled"); }
 	 * }
 	 */
 
-	public  static void logInfo(String detail) {
+	public   void logInfo(String detail) {
 
 		ReportTestManager.getChildTest().info(detail);
 
 	}
 
-	private  static void failure(String detail) throws IOException {
+	private   void failure (String detail) throws IOException {
 		try {
 			logger.info("Inside Failure" + detail);
 			ReportTestManager.getChildTest().fail(MarkupHelper.createLabel(detail, ExtentColor.RED))
@@ -236,7 +241,7 @@ public class ReportUtil
 
 	}
 
-	public static  String captureScreenShot() {
+	public   String captureScreenShot() {
 		String file = null;
 
 		File src = ((TakesScreenshot) ((WebDriver) DriverManager.getDriver().getWebDriver()))
@@ -262,7 +267,7 @@ public class ReportUtil
 	 * 
 	 * @throws Exception
 	 */
-	public  static void checkForErrors() {
+	public   void checkForErrors() {
 		if (errorMessageBuffer.get(Thread.currentThread().getId()) != null) {
 			String errorMessages = errorMessageBuffer.get(Thread.currentThread().getId()).toString();
 			errorMessageBuffer.remove(Thread.currentThread().getId());
