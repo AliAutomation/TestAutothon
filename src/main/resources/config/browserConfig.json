@@ -1,6 +1,0 @@
-{
-	"VISTA": {
-		"CHROME": "src/main/resources/drivers/chromedriver-windows-32bit.exe",
-		"EDGE": "src/main/resources/drivers/edgedriver-windows-64bit.exe"
-	}
-}
