@@ -7,6 +7,7 @@ import java.util.HashMap;
 import org.apache.commons.io.FileUtils;
 import org.apache.tools.ant.types.selectors.ExtendSelector;
 import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriver;
@@ -16,21 +17,19 @@ import org.testng.Assert;
 import com.aventstack.extentreports.markuputils.ExtentColor;
 import com.aventstack.extentreports.markuputils.Markup;
 import com.aventstack.extentreports.markuputils.MarkupHelper;
-import com.sapient.taf.dao.EmployeeDAO;
+
 import com.sapient.taf.drivermanager.DriverFactory;
 import com.sapient.taf.drivermanager.DriverManager;
 import com.sapient.taf.listeners.TestListener;
 import com.sapient.taf.log.LoggerFactory;
 import com.sapient.taf.log.MyLogger;
 
-
-public class ReportUtil implements IReportComm
-{
+public class ReportUtil implements IReportComm {
 
 	/**
 	 * The Logger logger
 	 */
-	private final   MyLogger logger = LoggerFactory.getLogger(ReportUtil.class);
+	private final MyLogger logger = LoggerFactory.getLogger(ReportUtil.class);
 
 	public static HashMap<Long, StringBuffer> errorMessageBuffer;
 
@@ -41,7 +40,7 @@ public class ReportUtil implements IReportComm
 	 * 
 	 * @param error
 	 */
-	public   void addErrorMessageToBuffer(Error error) {
+	public void addErrorMessageToBuffer(Error error) {
 		try {
 			StringBuffer errorBuffer = null;
 			if (errorMessageBuffer.get(Thread.currentThread().getId()) == null) {
@@ -65,7 +64,7 @@ public class ReportUtil implements IReportComm
 	 *            Message to be printed to the report
 	 */
 
-	public   void assertTrue(boolean condition, String message) {
+	public void assertTrue(boolean condition, String message) {
 		try {
 			Assert.assertTrue(condition, message);
 		} catch (Error e) {
@@ -85,7 +84,7 @@ public class ReportUtil implements IReportComm
 	 *            Message to be printed to the report
 	 */
 
-	public   void assertFalse(boolean condition, String message) {
+	public void assertFalse(boolean condition, String message) {
 		try {
 			Assert.assertFalse(condition, message);
 		} catch (Error e) {
@@ -107,7 +106,7 @@ public class ReportUtil implements IReportComm
 	 *            Message to be printed to the report
 	 */
 
-	public   void assertEquals(String actual, String expected, String message) {
+	public void assertEquals(String actual, String expected, String message) {
 		try {
 			Assert.assertEquals(actual, expected, message);
 		} catch (Error e) {
@@ -123,7 +122,7 @@ public class ReportUtil implements IReportComm
 	 * @param detail
 	 *            the detial for passed test case
 	 */
-	public   void logPass(String detail) {
+	public void logPass(String detail) {
 		logger.info("Test Case passes" + ReportTestManager.getChildTest().toString());
 		Assert.assertTrue(true, detail);
 		ReportTestManager.getChildTest().pass(MarkupHelper.createLabel(detail, ExtentColor.GREEN));
@@ -137,7 +136,7 @@ public class ReportUtil implements IReportComm
 	 *            the detail for failed test case
 	 * @throws IOException
 	 */
-	public   void logFail(String detail) {
+	public void logFail(String detail) {
 		try {
 			failure(detail);
 		} catch (IOException e) {
@@ -146,14 +145,37 @@ public class ReportUtil implements IReportComm
 		}
 	}
 
-	public   void verifyEqual(Object actual, Object expected) throws IOException {
-		if (!actual.equals(expected)) {
-			logFail(actual + " not equals to " + expected);
+	public void verifyEqual(Object actual, Object expected,By locator,String message) {
+        if (!actual.equals(expected)) {
+            highlightFailure(locator);
+            logFail(message + "  verification failed");
+            logInfo(actual + " not equals to " + expected);
+        } else {
+            logPass(message + " verification passed successfully");
+            logInfo(actual + " equals to " + expected);
+        }
+
+    }
+	
+	public static void highlightFailure(By locator){
+        WebDriver driver=DriverManager.getDriver().getWebDriver();
+        JavascriptExecutor drivercapt = (JavascriptExecutor) driver;
+        drivercapt.executeScript("arguments[0].setAttribute('style', 'border: 2px solid red;')", driver.findElement(locator));
+	}
+
+	public void verifyContains(String actual, String expected,By locator,String message) {
+		if (!actual.contains(expected)) {
+			  highlightFailure(locator);
+	          logFail(message + "  verification failed");
+			logInfo(actual + " not contains " + expected); 
+		
 		} else {
-			logPass(actual + " equals to " + expected);
+			logPass(message + " verification passed successfully");
+			logInfo(actual + " contains " + expected);
 		}
 
 	}
+
 
 	/**
 	 * This method is called whenever a test case is skipped
@@ -161,7 +183,7 @@ public class ReportUtil implements IReportComm
 	 * @param detail
 	 *            the details for skipped test case
 	 */
-	public   void logSkipped(String detail) {
+	public void logSkipped(String detail) {
 		logger.info("Test Case skipped");
 		ReportTestManager.getChildTest().skip(MarkupHelper.createLabel(detail, ExtentColor.YELLOW));
 		// ReportTestManager.getTest().
@@ -174,7 +196,7 @@ public class ReportUtil implements IReportComm
 	 *            reference element
 	 */
 	/*
-	 * public   void isElementDisplayed(By by) {
+	 * public void isElementDisplayed(By by) {
 	 * logger.info("Inside isElementDisplayed"); WebDriver driver =
 	 * DriverFactory.getDriver();
 	 * 
@@ -190,7 +212,7 @@ public class ReportUtil implements IReportComm
 	 *            reference element
 	 */
 	/*
-	 * public   void isElementSelected(By by) {
+	 * public void isElementSelected(By by) {
 	 * logger.info("Inside isElementSelected"); WebDriver driver =
 	 * DriverFactory.getDriver();
 	 * 
@@ -205,20 +227,19 @@ public class ReportUtil implements IReportComm
 	 *            reference element
 	 */
 	/*
-	 * public   void isElementEnabled(By by) {
-	 * logger.info("Inside isElementEnabled"); WebDriver driver =
-	 * DriverFactory.getDriver(); if (driver.findElement(by).isEnabled()) {
-	 * logPass("Element is Enabled"); } else { logFail("Element is not enabled"); }
-	 * }
+	 * public void isElementEnabled(By by) { logger.info("Inside isElementEnabled");
+	 * WebDriver driver = DriverFactory.getDriver(); if
+	 * (driver.findElement(by).isEnabled()) { logPass("Element is Enabled"); } else
+	 * { logFail("Element is not enabled"); } }
 	 */
 
-	public   void logInfo(String detail) {
+	public void logInfo(String detail) {
 
 		ReportTestManager.getChildTest().info(detail);
 
 	}
 
-	private   void failure (String detail) throws IOException {
+	private void failure(String detail) throws IOException {
 		try {
 			logger.info("Inside Failure" + detail);
 			ReportTestManager.getChildTest().fail(MarkupHelper.createLabel(detail, ExtentColor.RED))
@@ -241,7 +262,7 @@ public class ReportUtil implements IReportComm
 
 	}
 
-	public   String captureScreenShot() {
+	public String captureScreenShot() {
 		String file = null;
 
 		File src = ((TakesScreenshot) ((WebDriver) DriverManager.getDriver().getWebDriver()))
@@ -267,7 +288,7 @@ public class ReportUtil implements IReportComm
 	 * 
 	 * @throws Exception
 	 */
-	public   void checkForErrors() {
+	public void checkForErrors() {
 		if (errorMessageBuffer.get(Thread.currentThread().getId()) != null) {
 			String errorMessages = errorMessageBuffer.get(Thread.currentThread().getId()).toString();
 			errorMessageBuffer.remove(Thread.currentThread().getId());
