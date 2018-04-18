@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<suite name="webTests"  >
+<parameter name="report" value="Extent"/>
+	<listeners>
+		
+	 <listener class-name="com.sapient.taf.cucumber.TestNGExecutionListener"></listener>
+	</listeners>
+	
+	<test name="Verify Transfer Funds" enabled="false">
+		<parameter name="browser" value="chrome" />
+		<classes>
+			<class name="com.runner.TransferFundsRunner"/>
+		</classes>
+</test>
+
+<test name="Verify Account Information" enabled="false">
+		<parameter name="browser" value="chrome" />
+		<classes>
+			<class name="com.runner.OnlineBankingHomeRunner"/>
+		</classes>
+</test>
+
+<test name="Verify RestAPI Get Response" enabled="true">
+		<parameter name="browser" value="chrome" />
+		<classes>
+			<class name="com.runner.GetAPIRunner"/>
+		</classes>
+</test>
+
+<test name="Verify Soap Response" enabled="true">
+		<parameter name="browser" value="chrome" />
+		<classes>
+			<class name="com.runner.SoapRunner"/>
+		</classes>
+</test>
+	<!-- <test name="Employee DB Demo test" enabled="false">
+		<parameter name="browser" value="None" />
+		<classes>
+			<class name="com.app.db.tests.EmployeeDemoTest"/>
+		</classes>
+	</test>  -->
+	
+	<!-- <test name="webTests2">
+		<parameter name="browser" value="chrome" />
+		<packages>
+			<package name="com.app.web.tests"></package>
+		</packages>
+	</test> -->
+</suite>
