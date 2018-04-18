@@ -1,14 +1,14 @@
 package com.app.web.tests;
 
-import java.io.IOException;
+
 
 import org.testng.Assert;
 import org.testng.SkipException;
 import org.testng.annotations.Test;
 
-import com.app.web.pages.GoogleHomePage;
+import com.app.web.pages.cucumber.GoogleHomePage;
 import com.sapient.taf.framework.coreclasses.BaseClass;
-import com.sapient.taf.framework.coreclasses.BaseWebPage;
+
 import com.sapient.taf.reporting.IReportComm;
 import com.sapient.taf.reporting.ReportUtil;
 
@@ -17,7 +17,7 @@ public class GoogleFinanceTest extends BaseClass{
 
 
 	@Test
-	public void searchMethodA1() throws IOException {
+	public void searchMethodA1() {
 		//IReportComm reportUtil=new ReportUtil();
 		GoogleHomePage ghp = new GoogleHomePage();
 		System.out.println(reportUtil);
@@ -34,7 +34,7 @@ public class GoogleFinanceTest extends BaseClass{
 
 
 	@Test
-	public void searchMethodA2() throws IOException {
+	public void searchMethodA2()  {
 		GoogleHomePage ghp = new GoogleHomePage();
 		reportUtil.logInfo("Test A2 - Step 1");
 		reportUtil.logInfo("Test A2 - Step 2");

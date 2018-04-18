@@ -1,34 +1,26 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
-<suite name="webTests" >
+<suite name="Transfer Funds Suite"  >
+<parameter name="report" value="Extent"/>
 	<listeners>
-		<listener class-name="com.sapient.taf.listeners.TestListener" />
+		
+	 <listener class-name="com.sapient.taf.listeners.TestListener"></listener>
 	</listeners>
-	<test name="Google Search A" enabled="false">
-		<parameter name="browser" value="chrome" />
-		<classes>
-			<class name="com.app.web.tests.GoogleFinanceTest"/>
-		</classes>
-	</test>
 	
-	 <test name="Google Search B" enabled="false">
+	<test name="Verify Transfer Funds" enabled="true">
 		<parameter name="browser" value="chrome" />
 		<classes>
-			<class name="com.app.web.tests.GoogleFinanceTest2"/>
-		</classes>
-	</test>
-	
-	<test name="Google Search C" enabled="false">
-		<parameter name="browser" value="chrome" />
-		<classes>
-			<class name="com.app.web.tests.GoogleFinanceTest3"/>
+			<class name="com.app.web.tests.TransferFundsTest"/>
 		</classes>
 </test>
-	
-	<!-- <test name="webTests2">
+
+	<test name="Verify Transfer Funds Negative" enabled="true">
 		<parameter name="browser" value="chrome" />
-		<packages>
-			<package name="com.app.web.tests"></package>
-		</packages>
-	</test> -->
+		<classes>
+			<class name="com.app.web.tests.TransferFundsTestNegative"/>
+		</classes>
+</test>
+
+
+
 </suite>
