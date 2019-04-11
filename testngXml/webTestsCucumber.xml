@@ -28,7 +28,7 @@
 		</classes>
 </test>
 
-<test name="Verify Soap Response" enabled="true">
+<test name="Verify Soap Response" enabled="false">
 		<parameter name="browser" value="chrome" />
 		<classes>
 			<class name="com.runner.SoapRunner"/>

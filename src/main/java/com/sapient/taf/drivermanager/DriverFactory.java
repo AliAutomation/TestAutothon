@@ -55,7 +55,7 @@ public class DriverFactory {
     public static Driver<?> createInstance(String browserName)
             throws MalformedURLException, InvocationTargetException, InstantiationException, IllegalAccessException,
             NoSuchMethodException, SecurityException, IllegalArgumentException, FileNotFoundException {
-        System.out.println("BresssHold" );
+        
         boolean gridExecution = Boolean
                 .valueOf(configData.getProperty("framework.execution.remote.value", "false").toLowerCase());
         URL url = new URL(gridExecution ? configData.getProperty("framework.execution.remote.hub.url")
@@ -63,7 +63,7 @@ public class DriverFactory {
         Capabilities cap = getCapabilities(browserName, gridExecution,
                 new DesiredCapabilities(Splitter.on(',').withKeyValueSeparator('=').split(
                         configData.getProperty("framework.execution.additional.capabilities", "cap1=val1,cap2=val2"))));
-        System.out.println("Bresss2" );
+    
         return createInstance(browserName, url, cap, execPath);
     }
 
@@ -198,6 +198,7 @@ public class DriverFactory {
                     throw new BrowserInitException(
                             "Cannot instantiate remote web browser without proper capabilities, please provide capabilities. Capabilities provided = ["
                                     + cap + "]");
+                myCap.merge(DesiredCapabilities.chrome());
                 if (url == null)
                     throw new BrowserInitException(
                             "Cannot instantiate remote web browser without url for hub, please provide the same. Url provided = ["

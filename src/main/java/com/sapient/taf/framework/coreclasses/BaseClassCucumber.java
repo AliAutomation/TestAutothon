@@ -56,12 +56,12 @@ public class BaseClassCucumber{
 
     
 	@BeforeMethod
-	public void start(Method method, ITestResult testResult) throws MalformedURLException, InvocationTargetException, InstantiationException, IllegalAccessException, NoSuchMethodException, SecurityException, IllegalArgumentException, FileNotFoundException {
+	public void start(ITestContext ctx,Method method, ITestResult testResult) throws MalformedURLException, InvocationTargetException, InstantiationException, IllegalAccessException, NoSuchMethodException, SecurityException, IllegalArgumentException, FileNotFoundException {
 		
-		System.out.println("Inside");
+		
 
 				DriverManager.setWebDriver(DriverFactory
-						.createInstance("chrome"));
+						.createInstance(ctx.getCurrentXmlTest().getLocalParameters().get("browser")));
 			
 			
 		
