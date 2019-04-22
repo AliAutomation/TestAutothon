@@ -9,8 +9,8 @@ Feature: Get response from test API and validate status code and response body
     Then I validate StatusCode of the received response
     
     Examples: 
-      | testAPIName |
-      | TestAPI0    |
+      |testAPIName |
+      |TestAPI0    |
      |TestAPI3    |
 
 
