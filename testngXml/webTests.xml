@@ -14,10 +14,13 @@
 		</classes>
 	</test>
 
-	<!-- <test name="Verify Transfer Funds Negative" enabled="true"> <parameter 
-		name="browser" value="chrome" /> <classes> <class name="com.app.web.tests.TransferFundsTestNegative"/> 
-		</classes> </test> -->
-
+	<!-- <test name="Verify Transfer Funds Negative" enabled="true">
+		<parameter name="browser" value="chrome" />
+		<classes>
+			<class name="com.app.web.tests.TransferFundsTestNegative"/>
+		</classes>
+</test>
+ -->
 
 
 </suite>

@@ -7,7 +7,7 @@ Feature: Get response from test API and validate status code and response body
     Given I create GET request for "<testAPIName>"
     When I send GET request to the API
     Then I validate StatusCode of the received response
-
+    
     Examples: 
       | testAPIName |
       | TestAPI0    |
@@ -24,4 +24,5 @@ Feature: Get response from test API and validate status code and response body
 #   Examples:
 #      | testAPIName | jsonKey      |
 #      | TestAPI1    | headers.host |
+
 
