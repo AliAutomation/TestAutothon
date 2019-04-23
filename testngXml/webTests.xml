@@ -1,18 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
-<suite name="Transfer Funds Suite"  >
-<parameter name="report" value="Extent"/>
+<suite name="Transfer Funds Suite">
+	<parameter name="report" value="Extent" />
 	<listeners>
-		
-	 <listener class-name="com.sapient.taf.listeners.TestListener"></listener>
+
+		<listener class-name="com.sapient.taf.listeners.TestListener"></listener>
 	</listeners>
-	
+
 	<test name="Verify Transfer Funds" enabled="true">
 		<parameter name="browser" value="chrome" />
 		<classes>
-			<class name="com.app.web.tests.TransferFundsTest"/>
+			<class name="com.app.web.tests.TransferFundsTest" />
 		</classes>
-</test>
+	</test>
 
 	<!-- <test name="Verify Transfer Funds Negative" enabled="true">
 		<parameter name="browser" value="chrome" />
