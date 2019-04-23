@@ -1,6 +1,7 @@
 package com.restassured.stepdefs;
 
 import com.restassured.GetService;
+import com.restassured.PostService;
 import com.restassured.RequestBuilder;
 import com.restassured.RequestWrapper;
 import com.restassured.ResponseWrapper;
@@ -11,17 +12,17 @@ import cucumber.api.java.en.When;
 
 import static org.junit.Assert.assertEquals;
 
-public class getAPI {
+public class postAPI {
 
     private RequestWrapper request = new RequestWrapper();
     private RequestBuilder requestBuilder = new RequestBuilder();
-    private GetService getService = new GetService();
+    private PostService postService = new PostService();
     private ResponseWrapper response;
     private String apiExpectedContentType;
     private String testAPIName;
 
-    @Given("^I create GET request for \"([^\"]*)\"$")
-    public void iCreateGETRequestFor(String APIName) throws Throwable {
+    @Given("^I create POST request for \"([^\"]*)\"$")
+    public void iCreatePOSTRequestFor(String APIName) throws Throwable {
 
         //Name of the service being tested in current test
         testAPIName = APIName;
@@ -31,18 +32,25 @@ public class getAPI {
 
         //Set End Points
         requestBuilder.endPoints(testAPIName, request);
+        
+        //Set POST Body
+        requestBuilder.setRequestBody(testAPIName, request);
+        
+        //Set CharSet
+        requestBuilder.setRequestCharset(request); 
 
     }
 
-    @When("^I send GET request to the API$")
-    public void iSendGETRequestTo() throws Throwable {
+    @When("^I send POST request to the API$")
+    public void iSendPOSTRequestTo() throws Throwable {
         //Get response of service under test with set params
-        response = getService.get(request);
+        response = postService.post(request);
         
         System.out.println(" ----RESPONSE BODY ----" + response.getResponseBody());
         
         System.out.println(" ----RESPONSE CODE----" + response.getResponseCode());
     }
+    
     @Then("^I validate StatusCode of the received response$")
     public void iValidateStatusCodeOfTheReceivedResponse() throws Throwable {
 

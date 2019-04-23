@@ -7,7 +7,7 @@ import org.junit.Assert;
 
 public class JSONUtil {
 
-	public static boolean compareJSONs(String expectedJSON, String actualJSON){
+	public static boolean compareJSONs(String expectedJSON, String actualJSON) {
 
 		JsonParser parser = new JsonParser();
 		JsonElement jsonObj1 = parser.parse(actualJSON);
@@ -19,35 +19,36 @@ public class JSONUtil {
 		return jsonObj1.equals(jsonObj2);
 	}
 
-	private static String getJsonElement(String jsonString, String jsonKey){
+	public static String getJsonElement(String jsonString, String jsonKey) {
 		JsonParser jsonParser = new JsonParser();
-		try{
+		try {
 			JsonElement jsonElement = jsonParser.parse(jsonString);
 			String jsonMember = jsonElement.getAsJsonObject().get(jsonKey).toString();
-   			return jsonMember;
-		}catch(Exception e){
+			return jsonMember;
+		} catch (Exception e) {
 			Assert.fail("Json missing or invalid key or unable to parse");
 			return null;
 		}
 	}
 
-	public static String getJsonKeyValue(String jsonString, String jsonKey){
-
+	public static String getJsonKeyValue(String jsonString, String jsonKey) {
 		JsonParser jsonParser = new JsonParser();
 		String[] jsonKeys = jsonKey.split("\\.", -1);
 
-		//Check whether jsonkey is nested by looking for the presence of "."
-		//If the key is not nested then directly fetch jsonElement
+		// Check whether jsonkey is nested by looking for the presence of "."
+		// If the key is not nested then directly fetch jsonElement
 		boolean nestedJsonKey = jsonKey.contains(".");
-		if(!nestedJsonKey){return getJsonElement(jsonString, jsonKey);}
+		if (!nestedJsonKey) {
+			return getJsonElement(jsonString, jsonKey);
+		}
 
-		try{
+		try {
 			JsonElement jsonElements = jsonParser.parse(jsonString);
 			JsonObject asJsonObject = jsonElements.getAsJsonObject();
-			JsonObject jsonObject=null;
+			JsonObject jsonObject = null;
 			String jsonElementValue = null;
 
-			for (int i=1; i<=jsonKeys.length; i++ ) {
+			for (int i = 1; i <= jsonKeys.length; i++) {
 				if (i != jsonKeys.length) {
 					jsonObject = asJsonObject.getAsJsonObject(jsonKeys[0]);
 					System.out.println("Intermediate Object Value " + i + ": " + jsonObject);
@@ -57,7 +58,7 @@ public class JSONUtil {
 				}
 			}
 			return jsonElementValue;
-		}catch(Exception e){
+		} catch (Exception e) {
 			Assert.fail("Json missing or invalid key or unable to parse");
 			return null;
 		}
