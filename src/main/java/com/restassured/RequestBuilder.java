@@ -85,6 +85,11 @@ public class RequestBuilder {
     public void setRequestCharset(RequestWrapper request){
         request.setCharset(APIUtil.getAPIExpectedCharsetValue());
     }
+    
+    //Use to set SPECIFIC charset value
+    public void setRequestCharset(RequestWrapper request, String apiName){
+    	request.setCharset(APIUtil.getAPIExpectedCharsetValue(apiName));
+    }
 
     //Use to set API specific charset value
     public void setRequestCharset(SoapRequestWrapper request, String apiName){

@@ -6,28 +6,26 @@ import com.jayway.restassured.response.Response;
 import com.sapient.taf.log.LoggerFactory;
 import com.sapient.taf.log.MyLogger;
 
-
-
 public class PostService {
 
 	private ResponseWrapper response = new ResponseWrapper();
 	private final static MyLogger logger = LoggerFactory.getLogger(PostService.class);
 
 	public ResponseWrapper post(RequestWrapper request) {
-
-		//Get Params
-		String result=null;
+		// Get Params
+		String result = null;
 		String endPoint = request.getEndPoint();
 		ContentType contentType = request.getContentType();
 		String jsonBody = request.getRequestBody();
-		String charset = ";charset="+request.getCharset();
+		String charset = ";charset=" + request.getCharset();
 		Response response;
 
-		//fetch post response
+		// fetch post response
 		if (request.getCookies() == null) {
-			response = given().contentType(contentType+charset).body(jsonBody).when().post(endPoint).thenReturn();
+			response = given().contentType(contentType + charset).body(jsonBody).when().post(endPoint).thenReturn();
 		} else {
-			response = given().cookies(request.getCookies()).contentType(ContentType.JSON).body(jsonBody).when().post(endPoint).thenReturn();
+			response = given().cookies(request.getCookies()).contentType(ContentType.JSON).body(jsonBody).when()
+					.post(endPoint).thenReturn();
 		}
 
 		String responseAsString = response.body().asString();
@@ -38,5 +36,4 @@ public class PostService {
 
 		return this.response;
 	}
-
 }
