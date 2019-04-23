@@ -21,25 +21,20 @@ public class LoginPage extends CommonPage implements LoginRepo{
 	
 	public LoginPage() throws IOException  {
 		super();
-		
-		
 	}
 	
 	public LoginPage(WebDriver driver) throws IOException {
 		super(driver);
-		
 	}
 	
 	public LoginPage(WebDriver driver, Wait<? extends WebDriver> wait) throws IOException {
 		super(driver, wait);
-		
 	}
 
 	public void loadPage() {
 		openUrl(inputData.getDirectProperty("url"));
 		maximizePage();
 	}
-	
 	
 	
 	public void enterValue(String Locator)

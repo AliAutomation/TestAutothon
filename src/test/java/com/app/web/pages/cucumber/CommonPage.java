@@ -36,19 +36,13 @@ public class CommonPage extends BaseClass{
 
 
     protected CommonPage(WebDriver driver) {
-
-
         this(driver, new WebDriverWait(driver, FrameworkConstants.maxWebPageOrWaitTime));
-
     }
-
 
     protected CommonPage(WebDriver driver, Wait<? extends WebDriver> wait) {
         this.driver = driver;
         this.wait = wait;
     }
-
-	
 	
 	protected void maximizePage() {
 		this.driver.manage().window().maximize();
