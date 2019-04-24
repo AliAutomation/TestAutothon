@@ -39,7 +39,7 @@ import org.xmlunit.xpath.XPathEngine;
 
 
 import com.restassured.ResponseWrapper;
-import com.soap.stepdefs.SoapHooks;
+//import com.soap.stepdefs.SoapHooks;
 
 public class SoapUtil {
 
@@ -173,11 +173,10 @@ public class SoapUtil {
 		    System.out.println("Actual list" + actualList);
 		if(expectedList.equals(actualList)) {
 			
-			SoapHooks.scenarioGlobal.write("Validation passed");
+//			SoapHooks.scenarioGlobal.write("Validation passed");
 		}
 		else {
 			Assert.fail("Validation Failed");
-			
 		}
 		return true;
 	}
