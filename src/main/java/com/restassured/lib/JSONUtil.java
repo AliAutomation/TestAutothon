@@ -63,4 +63,18 @@ public class JSONUtil {
 			return null;
 		}
 	}
+
+	public static boolean verifyPresenseOfElement(String jsonString, String jsonKey) {
+		JsonParser jsonParser = new JsonParser();
+		try {
+			JsonElement jsonElement = jsonParser.parse(jsonString);
+			if(jsonElement.getAsJsonObject().get(jsonKey).toString().equals(null)){
+				return false;
+			}
+			return true;
+		} catch (Exception e) {
+			Assert.fail("Json missing or invalid key or unable to parse");
+			return false;
+		}
+	}
 }
