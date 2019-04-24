@@ -27,6 +27,8 @@ public class TestFlow {
 			objPostAPI.iCreatePOSTRequestFor("TestAPI_Post3");
 			objPostAPI.iSendPOSTRequestTo();
 			objPostAPI.iValidateStatusCodeOfTheReceivedResponse();
+			objPostAPI.iValidatePresenseOfJsonTagTheReceivedResponse("fault");
+			objPostAPI.iFetchJsonValue("fault");
 		} catch (Throwable e) {
 			e.printStackTrace();
 			assertTrue(false);
