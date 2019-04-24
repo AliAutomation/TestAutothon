@@ -10,7 +10,7 @@
 	<test name="Verify Transfer Funds" enabled="true">
 		<parameter name="browser" value="chrome" />
 		<classes>
-			<class name="com.app.web.tests.TransferFundsTest" />
+			<class name="com.app.web.tests.MfsTest" />
 		</classes>
 	</test>
 
