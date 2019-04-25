@@ -1,13 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
 <suite name="apiTests">
-	<!-- <listeners>
+	<listeners>
 		<listener class-name="com.sapient.taf.listeners.TestListener"></listener>
-	</listeners> -->
+	</listeners>
 
-	<test name="API Test" enabled="true">
+	<test name="TestAutothon Test" enabled="true">
+		<parameter name="browser" value="chrome" />
 		<classes>
-			<class name="com.restassured.testAutoThon.TestFlow" />
+			<class name="com.restassured.testAutoThon.UploadFlow" />
 		</classes>
 	</test>
 </suite>

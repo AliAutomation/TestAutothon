@@ -1,5 +1,6 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+ 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd"> 
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>com.sapient</groupId>
 	<artifactId>testautomationframework</artifactId>
@@ -284,16 +285,13 @@
 			<artifactId>java-client</artifactId>
 			<version>${appium.version}</version>
 		</dependency>
-		<!-- <dependency>
-			<groupId>com.github.detro.ghostdriver</groupId>
+		<!-- <dependency> <groupId>com.github.detro.ghostdriver</groupId> <artifactId>phantomjsdriver</artifactId> 
+			<version>${phantomjs.version}</version> </dependency> -->
+		<dependency>
+			<groupId>com.codeborne</groupId>
 			<artifactId>phantomjsdriver</artifactId>
 			<version>${phantomjs.version}</version>
-		</dependency> -->
-		<dependency>
-    <groupId>com.codeborne</groupId>
-    <artifactId>phantomjsdriver</artifactId>
-    <version>${phantomjs.version}</version>
-</dependency>
+		</dependency>
 		<dependency>
 			<groupId>org.slf4j</groupId>
 			<artifactId>slf4j-log4j12</artifactId>
@@ -310,7 +308,7 @@
 			<version>${slf4j.version}</version>
 		</dependency>
 
-<dependency>
+		<dependency>
 			<groupId>com.jayway.restassured</groupId>
 			<artifactId>rest-assured</artifactId>
 			<version>2.4.1</version>
@@ -325,26 +323,26 @@
 			<artifactId>cucumber-picocontainer</artifactId>
 			<version>1.2.3</version>
 		</dependency>
-	
+
 		<dependency>
 			<groupId>net.masterthought</groupId>
 			<artifactId>cucumber-reporting</artifactId>
 			<version>3.15</version>
 		</dependency>
-		
-			<dependency>
+
+		<dependency>
 			<groupId>org.xmlunit</groupId>
 			<artifactId>xmlunit-core</artifactId>
 			<version>2.2.1</version>
 		</dependency>
-		
+
 		<dependency>
 			<groupId>org.xmlunit</groupId>
 			<artifactId>xmlunit-matchers</artifactId>
 			<version>2.2.1</version>
 		</dependency>
-		
-		
+
+
 
 		<dependency>
 			<groupId>info.cukes</groupId>
@@ -360,22 +358,22 @@
 			<version>1.0.0</version>
 		</dependency>
 
-	<!-- 	<dependency>
-			<groupId>info.cukes</groupId>
-			<artifactId>gherkin</artifactId>
-			<version>2.12.2</version>
-		</dependency>
+		<!-- <dependency> <groupId>info.cukes</groupId> <artifactId>gherkin</artifactId> 
+			<version>2.12.2</version> </dependency> <dependency> <groupId>org.mockito</groupId> 
+			<artifactId>mockito-all</artifactId> <version>2.0.2-beta</version> </dependency> -->
 
 		<dependency>
-			<groupId>org.mockito</groupId>
-			<artifactId>mockito-all</artifactId>
-			<version>2.0.2-beta</version>
-		</dependency> -->
-		
+			<groupId>com.vimalselvam</groupId>
+			<artifactId>cucumber-extentsreport</artifactId>
+			<version>3.0.2</version>
+		</dependency>
+
+		<!-- https://mvnrepository.com/artifact/de.openkeyword/autoit -->
 		<dependency>
-    <groupId>com.vimalselvam</groupId>
-    <artifactId>cucumber-extentsreport</artifactId>
-    <version>3.0.2</version>
-</dependency>
+			<groupId>de.openkeyword</groupId>
+			<artifactId>autoit</artifactId>
+			<version>0.0.15</version>
+		</dependency>
+
 	</dependencies>
 </project>
