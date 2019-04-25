@@ -16,8 +16,6 @@ public class json_read
 {
     public  static void readdata(String jsondata) throws Exception
     {
-
-
         // parsing file "JSONExample.json"
         Object obj = new JSONParser().parse(new FileReader("response.json"));
 //        Object obj = new JSONParser().parse(new getTwitterResponse());

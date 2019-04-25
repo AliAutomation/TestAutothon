@@ -36,9 +36,10 @@ public class getTwitterResponse {
         HttpResponse response = client.execute(request);
 
         int statusCode = response.getStatusLine().getStatusCode();
+        String responsebody = IOUtils.toString(response.getEntity().getContent());
+        System.out.println("responsebody#########" + ":" + responsebody);
         System.out.println(statusCode + ":" + response.getStatusLine().getReasonPhrase());
         System.out.println("response######" + ":" + response.getEntity().getContent());
-        System.out.println(IOUtils.toString(response.getEntity().getContent()));
 //        json_read.readdata(IOUtils.toString(response.getEntity().getContent()));
     }
 
