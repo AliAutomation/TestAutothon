@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
 <suite name="apiTests">
+
 	<listeners>
 		<listener class-name="com.sapient.taf.listeners.TestListener"></listener>
 	</listeners>
@@ -9,6 +10,16 @@
 		<parameter name="browser" value="chrome" />
 		<classes>
 			<class name="com.restassured.testAutoThon.UploadFlow" />
+
+
+	<test name="Twitter API" enabled="true">
+		<!-- <classes> <class name="com.restassured.testAutoThon.TestFlow" /> </classes> -->
+		<classes>
+			<class name="com.restassured.testAutoThon.twitterResponse" />
+			<methods>
+				<include name="testMethod" />
+			</methods>
+
 		</classes>
 	</test>
 </suite>
