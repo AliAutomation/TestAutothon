@@ -1,0 +1,11 @@
+name: Transfer Funds Suite
+configFailurePolicy: skip
+parameters: { report: Extent }
+listeners:
+  - com.sapient.taf.listeners.TestListener
+tests:
+  - name: Verify HeroKuAppLogin
+    parameters: { browser: chrome }
+    classes:
+      - com.app.web.tests.VerifyHerokuLogin
+
