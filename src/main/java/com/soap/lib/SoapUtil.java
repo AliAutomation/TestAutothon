@@ -42,9 +42,6 @@ import com.restassured.ResponseWrapper;
 //import com.soap.stepdefs.SoapHooks;
 
 public class SoapUtil {
-
-
-
 	
 	String apiName;
 	private final static Logger Log = Logger.getLogger(SoapUtil.class); //for logging

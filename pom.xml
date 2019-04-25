@@ -294,7 +294,7 @@
 			<artifactId>phantomjsdriver</artifactId>
 			<version>${phantomjs.version}</version>
 		</dependency>
-		<!-- <dependency>
+		<dependency>
 			<groupId>org.slf4j</groupId>
 			<artifactId>slf4j-log4j12</artifactId>
 			<version>${slf4j.version}</version>
@@ -309,6 +309,7 @@
 			<artifactId>slf4j-simple</artifactId>
 			<version>${slf4j.version}</version>
 		</dependency>
+
 		<dependency>
 			<groupId>com.jayway.restassured</groupId>
 			<artifactId>rest-assured</artifactId>
@@ -371,5 +372,13 @@
 			<artifactId>cucumber-extentsreport</artifactId>
 			<version>3.0.2</version>
 		</dependency>
+
+		<!-- https://mvnrepository.com/artifact/de.openkeyword/autoit -->
+		<dependency>
+			<groupId>de.openkeyword</groupId>
+			<artifactId>autoit</artifactId>
+			<version>0.0.15</version>
+		</dependency>
+
 	</dependencies>
 </project>
